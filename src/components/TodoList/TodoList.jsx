@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import TodoItem from '../TodoItem/TodoItem'
+import TodoForm from '../TodoForm/TodoForm'
 
 function TodoList() {
   const [todos, setTodos] = useState([
@@ -8,30 +9,15 @@ function TodoList() {
     { id: 3, title: 'לקנות חלב', isDone: false },
   ])
 
-   const [newTitle, setNewTitle] = useState('')
-
-  function addTodo(e) {
-    e.preventDefault()
-    if (newTitle.trim() === '') return
-
-    const newTodo = { id: Date.now(), title: newTitle, isDone: false }
+  function addTodo(title) {
+    const newTodo = { id: Date.now(), title, isDone: false }
     setTodos([...todos, newTodo])
-    setNewTitle('')
   }
 
   return (
     <div>
       <h1>רשימת משימות</h1>
-
-      <form onSubmit={addTodo}>
-        <input
-          value={newTitle}
-          onChange={(e) => setNewTitle(e.target.value)}
-          placeholder="משימה חדשה"
-        />
-        <button type="submit">אישור</button>
-      </form>
-
+      <TodoForm onAdd={addTodo} />
       {todos.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
