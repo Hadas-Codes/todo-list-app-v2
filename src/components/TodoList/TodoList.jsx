@@ -14,12 +14,20 @@ function TodoList() {
     setTodos([...todos, newTodo])
   }
 
+  function markDone(id) {
+  setTodos(
+    todos.map((todo) =>
+      todo.id === id ? { ...todo, isDone: true } : todo
+    )
+  )
+}
+
   return (
     <div>
       <h1>רשימת משימות</h1>
       <TodoForm onAdd={addTodo} />
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
+        <TodoItem key={todo.id} todo={todo}  onDone={markDone}/>
       ))}
     </div>
   )
